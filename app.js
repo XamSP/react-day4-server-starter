@@ -14,10 +14,10 @@ const path         = require('path');
 // INSTALL THESE DEPENDENCIES: passport-local, passport, bcryptjs, express-session
 // AND UN-COMMENT OUT FOLLOWING LINES:
 
-// const session       = require('express-session');
-// const passport      = require('passport');
+const session       = require('express-session');
+const passport      = require('passport');
 
-// require('./configs/passport');
+require('./configs/passport');
 
 // IF YOU STILL DIDN'T, GO TO 'configs/passport.js' AND UN-COMMENT OUT THE WHOLE FILE
 
@@ -67,12 +67,21 @@ app.locals.title = 'Express - Generated with IronGenerator';
 
 // ADD CORS SETTINGS HERE TO ALLOW CROSS-ORIGIN INTERACTION:
 
+const cors = require('cors');
 
-
+app.use(cors({
+  credentials: true,
+  origin: ['http://localhost:3000']
+}));
 // ROUTES MIDDLEWARE STARTS HERE:
 
 const index = require('./routes/index');
 app.use('/', index);
 
+const projectRoutes = require('./routes/project-routes');
+app.use('/api', projectRoutes);
+
+const taskRoutes = require('./routes/task-routes');
+app.use('/api', taskRoutes);
 
 module.exports = app;
