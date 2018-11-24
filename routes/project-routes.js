@@ -52,18 +52,18 @@ router.put('/projects/:id', (req, res, next)=>{
 })
 
 router.post('/projects', (req, res, next)=>{
- 
   Project.create({
     title: req.body.title,
     description: req.body.description,
-    tasks: []
+    tasks: [],
+    owner: req.user._id 
   })
-    .then(response => {
-      res.json(response);
-    })
-    .catch(err => {
-      res.json(err);
-    })
+  .then(response => {
+  res.json(response);
+  })
+  .catch(err => {
+  res.json(err);
+  })
 });
 
 router.delete('/projects/:id', (req, res, next)=>{
